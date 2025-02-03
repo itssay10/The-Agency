@@ -1,40 +1,54 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&display=swap');
+
+* {
     background-color: #0d0d0d;
-    color: #00ff99;
-    font-family: Arial, sans-serif;
+    font-family: "Lexend Giga", serif;
     text-align: center;
 }
 
-h1 {
-    font-size: 2em;
-    margin-top: 20px;
+.container .btn {
+    background-color: #283a2d; /* Color morado */
+    color: whitesmoke; /* Color del texto */
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 5px; /* Espaciado entre botones */
+    border-radius: 2px;
+    font-size: 12px;
+    display: inline-block;
+    text-align: center; /* Centrar la imagen y botones */
 }
 
-.gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
+.container .btn:hover {
+    background-color: #405b47; /* Color más oscuro al pasar el mouse */
 }
 
-.bot {
-    margin: 15px;
-    text-align: center;
+.img-agency{
+padding-bottom: 6px;
+padding-top: 6px;
+
 }
 
-.bot img {
-    width: 200px;
-    height: auto;
-    border: 2px solid #00ff99;
-    border-radius: 8px;
-    transition: transform 0.3s;
+.img-agency img {
+    width: 38%; /* Hace que la imagen ocupe todo el ancho del contenedor */
+    height: 400px; 
+    object-fit: cover; /* Evita que la imagen se deforme */
 }
 
-.bot img:hover {
-    transform: scale(1.1);
+/*BOTON TO JANITOR*/
+#janitor {
+    background-color: #283a2d; /* Color morado */
+    color: whitesmoke; /* Color del texto */
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 5px; /* Espaciado entre botones */
+    border-radius: 2px;
+    font-size: 13px;
+    display: inline-block;
+    text-align: center; /* Centrar la imagen y botones */
+    font-style: oblique;
+    width: 36%;
 }
 
-.bot p {
-    margin-top: 10px;
-    font-size: 1.2em;
+#janitor:hover {
+    background-color: #405b47; /* Color más oscuro al pasar el mouse */
 }
