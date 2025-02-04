@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Agency</title>
-    <link rel="stylesheet" href="style.css">
-   
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Agency</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <!--HOME-->
-    <div class="container"> 
-        <a href="index.html" class="btn btn-custom">HOME</a>
-        <a href="outcasts.html" class="btn btn-custom">HELL'S OUTCASTS</a>
-        <a href="dreadborn.html" class="btn btn-custom">DREADBORN</a>
-        <a href="cerberus.html" class="btn btn-custom">CERBERUS UNIT</a>
-        <a href="others.html" class="btn btn-custom">OTHERS</a>
-
-        <div class="img-agency">
-            <img src="images/theagency.jpg" class="img-fluid rounded" alt="...">
+  <div class="container min-vh-100 d-flex flex-column justify-content-center">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <!-- Barra de navegación -->
+        <nav class="mb-2">
+          <a href="index.html" class="btn btn-custom mx-1">HOME</a>
+          <a href="outcasts.html" class="btn btn-custom mx-1">HELL'S OUTCASTS</a>
+          <a href="dreadborn.html" class="btn btn-custom mx-1">DREADBORN</a>
+          <a href="cerberus.html" class="btn btn-custom mx-1">CERBERUS UNIT</a>
+          <a href="others.html" class="btn btn-custom mx-1">OTHERS</a>
+        </nav>
+        <!-- Imagen principal -->
+        <div class="img-agency mb-2">
+          <img src="images/theagency.jpg" class="img-fluid" alt="The Agency">
         </div>
+        <!-- Botón To Janitor -->
+        <a href="https://janitorai.com/profiles/e0fde0d0-863a-4eef-961c-cc0b116604d9_profile-of-say-10" class="btn btn-custom" id="janitor">
+          To Janitor
+        </a>
+      </div>
     </div>
-    <a href="https://janitorai.com/profiles/e0fde0d0-863a-4eef-961c-cc0b116604d9_profile-of-say-10" class="btn btn-custom" id="janitor">To Janitor</a>
-    
+  </div>
+  <!-- Bootstrap JS (opcional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
