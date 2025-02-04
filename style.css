@@ -3,8 +3,6 @@
 body {
   background-color: #0d0d0d;
   font-family: "Lexend Giga", serif;
-  /* Se puede mantener text-align global en el contenedor si se prefiere, 
-     pero es mejor controlarlo con clases de Bootstrap o en elementos específicos */
 }
 
 /* Botones personalizados */
@@ -13,7 +11,7 @@ body {
   color: whitesmoke;
   text-decoration: none;
   padding: 10px 20px;
-  margin: 5px;
+  margin: 5px 0; /* Ajuste de margen vertical; el horizontal lo maneja Bootstrap con mx-1 en la navbar */
   border-radius: 2px;
   font-size: 12px;
 }
@@ -28,16 +26,14 @@ body {
 }
 
 .img-agency img {
-  width: 100%;       /* La imagen ocupará el ancho completo de su contenedor */
-  max-height: 400px; /* Limita la altura para evitar deformaciones */
-  object-fit: cover;
+  width: 100%;        /* La imagen ocupará el ancho del contenedor padre */
+  height: 400px;      /* Altura fija, según tus necesidades */
+  object-fit: cover;  /* Mantiene la proporción sin deformar */
 }
 
-/* Botón To Janitor (se puede ajustar para destacar o personalizar) */
+/* Botón To Janitor específico (opcional) */
 #janitor {
   font-size: 13px;
   font-style: oblique;
-  /* Para centrarlo y adaptarlo al ancho del contenedor, se usa width: 100% */
-  width: 100%;
-  display: inline-block;
+  /* La clase w-100 (Bootstrap) ya lo hace de ancho completo */
 }
