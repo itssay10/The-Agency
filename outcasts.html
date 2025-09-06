@@ -21,7 +21,7 @@ body {
   color: whitesmoke;
   text-decoration: none;
   padding: 10px 20px;
-  margin: 5px 0; /* Ajuste de margen vertical; el horizontal lo maneja Bootstrap con mx-1 en la navbar */
+  margin: 90px 0; /* Ajuste de margen vertical; el horizontal lo maneja Bootstrap con mx-1 en la navbar */
   border-radius: 2px;
   font-size: 12px;
 }
@@ -87,6 +87,13 @@ body {
     .btn-custom:hover {
       background-color: #405b47;
     }
+
+    .section-title {
+  display: inline-block; /* evita que la línea ocupe todo el ancho */
+  border-bottom: 3px solid #77967edf; 
+  padding-bottom: 5px; /* espacio entre texto y línea */
+  color: #ffffffd2; /* mismo color que usas en títulos de cards */
+}
   </style>
 </head>
 <body>
@@ -104,7 +111,7 @@ body {
 
   <div class="container py-4">
     
-    <h2 class="text-center mb-4">HELL'S OUTCASTS</h2>
+    <h2 class="text-center mb-4 section-title">HELL'S OUTCASTS</h2>
 
     <div class="row g-3">
       
