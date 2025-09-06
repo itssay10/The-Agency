@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Hell's Outcasts</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&display=swap');
+
+body {
+  background-color: #0d0d0d;
+  font-family: "Lexend Giga", serif;
+}
+
+/* Botones personalizados */
+.btn-custom {
+  background-color: #283a2d;
+  color: whitesmoke;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 5px 0; /* Ajuste de margen vertical; el horizontal lo maneja Bootstrap con mx-1 en la navbar */
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+.btn-custom:hover {
+  background-color: #405b47;
+}
+
+/* Botón To Janitor específico (opcional) */
+#janitor, #cai, #charsnap {
+  font-size: 13px;
+  font-style: oblique;
+  /* La clase w-100 (Bootstrap) ya lo hace de ancho completo */
+}
+
+    /* Card estilo dossier */
+    .dossier-card {
+      background-color: #1a1a1a;
+      border: 1px solid #283a2d;
+      border-radius: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0px 0px 12px rgba(0,0,0,0.6);
+    }
+
+    .dossier-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0px 0px 18px rgba(64, 91, 71, 0.7);
+    }
+
+    .dossier-card img {
+      height: 350px;
+      object-fit: cover;
+      filter: grayscale(70%) hue-rotate(90deg) brightness(85%) contrast(70%); /* convierte la imagen a escala de grises */
+  transition: filter 0.3s ease; /* para animación suave */
+    }
+    
+.dossier-card:hover img {
+  filter: grayscale(0%);
+}
+
+
+    .card-title {
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #9fe6b8;
+    }
+
+    .card-text {
+      font-size: 12px;
+      color: #ccc;
+    }
+
+    /* Botón custom con bootstrap */
+    .btn-custom {
+      background-color: #283a2d;
+      color: whitesmoke;
+      font-size: 11px;
+      border-radius: 2px;
+      border: none;
+    }
+
+    .btn-custom:hover {
+      background-color: #405b47;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="d-flex justify-content-center mb-4">
+        <!-- Barra de navegación -->
+        <nav class="mb-1">
+          <a href="https://itssay10.github.io/The-Agency/" class="btn btn-custom mx-1">HOME</a>
+          <a href="outcasts.html" class="btn btn-custom mx-1">HELL'S OUTCASTS</a>
+          <a href="dreadborn.html" class="btn btn-custom mx-1">DREADBORN</a>
+          <a href="cerberus.html" class="btn btn-custom mx-1">CERBERUS UNIT</a>
+          <a href="others.html" class="btn btn-custom mx-1">OTHERS</a>
+        </nav>
+    </div>
+
+  <div class="container py-4">
+    
+    <h2 class="text-center mb-4">HELL'S OUTCASTS</h2>
+
+    <div class="row g-3">
+      
+      <!-- Card 1 -->
+      <div class="col-5 col-sm-6 col-md-4 col-lg-3">
+        <div class="card dossier-card h-100">
+          <img src="/images/Luci.webp" class="card-img-top" alt="Lucifer">
+          <div class="card-body">
+            <h5 class="card-title">Lucifer Kerrigan</h5>
+            <p class="card-text">CEO of Kerrigan Technologies</p>
+            <a href="#" class="btn btn-custom">View report</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-5 col-sm-6 col-md-4 col-lg-3">
+        <div class="card dossier-card h-100">
+          <img src="/images/Blake.jpg" class="card-img-top" alt="Blake">
+          <div class="card-body">
+            <h5 class="card-title">Lucifer Kerrigan</h5>
+            <p class="card-text">CEO of Kerrigan Technologies</p>
+            <a href="#" class="btn btn-custom">View report</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-5 col-sm-6 col-md-4 col-lg-3">
+        <div class="card dossier-card h-100">
+          <img src="/images/Luci.webp" class="card-img-top" alt="Lucifer">
+          <div class="card-body">
+            <h5 class="card-title">Lucifer Kerrigan</h5>
+            <p class="card-text">CEO of Kerrigan Technologies</p>
+            <a href="#" class="btn btn-custom">View report</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card dossier-card h-100">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Price">
+          <div class="card-body">
+            <h5 class="card-title">Operador: Price</h5>
+            <p class="card-text">Comandante veterano, estratega nato. Líder de campo.</p>
+            <a href="#" class="btn btn-custom">Ver Informe</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card dossier-card h-100">
+          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Soap">
+          <div class="card-body">
+            <h5 class="card-title">Operador: Soap</h5>
+            <p class="card-text">Experto en demoliciones y combate cercano. Leal hasta la muerte.</p>
+            <a href="#" class="btn btn-custom">Ver Informe</a>
+          </div>
+        </div>
+      </div>
+
+      
+
+    </div>
+  </div>
+
+</body>
+</html>
 
