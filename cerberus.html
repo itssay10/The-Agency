@@ -1,1 +1,768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerberus Personnel Files - Classified</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS personalizado -->
+    <style>
+        :root {
+            --cia-white: #ffffff;
+            --cia-light-gray: #f8f9fa;
+            --cia-dark-gray: #2c2c2c;
+            --cia-darker-gray: #1a1a1a;
+            --cia-khaki-dark: #4a5d23;
+            --cia-khaki-darker: #3a4a1c;
+            --cia-red: #b74747;
+            --cia-shadow: rgba(0, 0, 0, 0.3);
+            --folder-brown: #8d763e;
+            --folder-light: #c0ad71;
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--cia-dark-gray) 0%, var(--cia-darker-gray) 100%);
+            color: var(--cia-white);
+            min-height: 100vh;
+        }
+
+        .classified-stamp {
+            background: var(--cia-red);
+            color: var(--cia-white);
+            padding: 8px 20px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 3px;
+            transform: rotate(-5deg);
+            display: inline-block;
+            border: 2px solid var(--cia-red);
+            box-shadow: 0 4px 8px var(--cia-shadow);
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--cia-white);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px var(--cia-shadow);
+        }
+
+        .agency-info {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--cia-khaki-dark);
+            letter-spacing: 1px;
+        }
+
+        .file-card {
+            position: relative;
+            height: 200px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .file-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(145deg, var(--folder-brown), var(--folder-light));
+            border-radius: 8px 8px 4px 4px;
+            box-shadow: 0 8px 25px var(--cia-shadow);
+            transition: all 0.5s ease;
+            z-index: 2;
+            clip-path: polygon(0 15%, 25% 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .file-card::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 3;
+            transition: all 0.5s ease;
+            box-shadow: 
+                0 20px 0 rgba(0, 0, 0, 0.1),
+                0 40px 0 rgba(0, 0, 0, 0.1),
+                0 60px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .folder-photo {
+            position: absolute;
+            top: 40px;
+            right: 30px;
+            width: 80px;
+            height: 100px;
+            z-index: 4;
+            transition: all 0.5s ease;
+            transform: rotate(-5deg);
+        }
+
+        .folder-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .photo-clip {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 15px;
+            background: linear-gradient(145deg, #e0e0e0, #c0c0c0);
+            border-radius: 0 0 4px 4px;
+            z-index: 5;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border: 1px solid #b0b0b0;
+        }
+
+        .photo-clip::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 1px;
+            background: #999;
+            border-radius: 1px;
+        }
+
+        .file-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--cia-light-gray);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transform: rotateY(-90deg);
+            transition: all 0.5s ease;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%);
+        }
+
+        .folder-label {
+            position: absolute;
+            top: 5px;
+            left: 30px;
+            background: var(--cia-white);
+            color: var(--cia-dark-gray);
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 2px;
+            z-index: 4;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .character-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            color: var(--cia-dark-gray);
+        }
+
+        .character-codename {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--cia-khaki-dark);
+            margin-bottom: 15px;
+        }
+
+        .character-status {
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(74, 93, 35, 0.2);
+            color: var(--cia-khaki-dark);
+            border: 1px solid var(--cia-khaki-dark);
+        }
+
+        .status-mia {
+            background: rgba(204, 0, 0, 0.2);
+            color: var(--cia-red);
+            border: 1px solid var(--cia-red);
+        }
+
+        .status-deep-cover {
+            background: rgba(44, 44, 44, 0.2);
+            color: var(--cia-dark-gray);
+            border: 1px solid var(--cia-dark-gray);
+        }
+
+        .file-card:hover::before {
+            transform: rotateX(-45deg) translateZ(20px);
+            opacity: 0.8;
+        }
+
+        .file-card:hover::after {
+            opacity: 0;
+        }
+
+        .file-card:hover .file-content {
+            opacity: 1;
+            transform: rotateY(0deg);
+        }
+
+        .file-card:hover .folder-label {
+            transform: translateY(-10px);
+        }
+
+        .file-card:hover .folder-photo {
+            transform: rotate(-8deg) translateY(-5px);
+        }
+
+        .file-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .hover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(74, 93, 35, 0.95);
+            color: var(--cia-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease 0.2s;
+            z-index: 5;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%);
+        }
+
+        .file-card:hover .hover-overlay {
+            opacity: 1;
+        }
+
+        .classified-info h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--cia-white);
+            letter-spacing: 1px;
+        }
+
+        .classified-info p {
+            font-size: 13px;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .classified-info strong {
+            color: var(--cia-light-gray);
+        }
+
+        .view-file-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--cia-white);
+            color: var(--cia-khaki-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--cia-white);
+        }
+
+        .view-file-btn:hover {
+            background: transparent;
+            color: var(--cia-white);
+            border-color: var(--cia-white);
+            text-decoration: none;
+        }
+
+        .classified-seal {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            background: var(--cia-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: 700;
+            color: white;
+            transform: rotate(15deg);
+            z-index: 6;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid white;
+        }
+
+        .footer-classified {
+            border-top: 1px solid var(--cia-khaki-dark);
+            padding-top: 30px;
+            margin-top: 50px;
+        }
+
+        .footer-classified p {
+            font-size: 12px;
+            color: var(--cia-khaki-dark);
+            letter-spacing: 1px;
+            margin: 5px 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .file-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .file-card:nth-child(1) { animation-delay: 0.1s; }
+        .file-card:nth-child(2) { animation-delay: 0.2s; }
+        .file-card:nth-child(3) { animation-delay: 0.3s; }
+        .file-card:nth-child(4) { animation-delay: 0.4s; }
+        .file-card:nth-child(5) { animation-delay: 0.5s; }
+        .file-card:nth-child(6) { animation-delay: 0.6s; }
+        .file-card:nth-child(7) { animation-delay: 0.7s; }
+        .file-card:nth-child(8) { animation-delay: 0.8s; }
+        .file-card:nth-child(9) { animation-delay: 0.9s; }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .file-card {
+                height: 180px;
+            }
+            
+            .folder-photo {
+                width: 60px;
+                height: 80px;
+                right: 20px;
+                top: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .file-card {
+                height: 160px;
+            }
+            
+            .folder-photo {
+                width: 50px;
+                height: 70px;
+                right: 15px;
+                top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-5">
+        <!-- Header -->
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <div class="classified-stamp mb-3">CLASSIFIED</div>
+                <h1 class="main-title mb-4">CERBERUS UNIT</h1>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <span class="agency-info">CENTRAL INTELLIGENCE AGENCY</span>
+                    <span class="agency-info">SECURITY CLEARANCE: TOP SECRET</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="row g-4 justify-content-center">
+            <!-- Agent 001 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="file-card" data-character="agent-001">
+                    <div class="folder-label">AGENT 001</div>
+                    <div class="classified-seal">CLASSIFIED<br>SECRET</div>
+                    <div class="folder-photo">
+                        <div class="photo-clip"></div>
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=250&fit=crop&crop=face" alt="Agent 001" class="img-fluid">
+                    </div>
+                    <div class="file-content">
+                        <div class="character-info">
+                            <h3 class="character-name">JAMES MITCHELL</h3>
+                            <p class="character-codename">CODENAME: SHADOW</p>
+                            <span class="character-status status-active">ACTIVE</span>
+                        </div>
+                    </div>
+                    <div class="hover-overlay">
+                        <div class="classified-info text-center">
+                            <h4>JAMES MITCHELL</h4>
+                            <p><strong>Status:</strong> Active</p>
+                            <p><strong>Specialization:</strong> Covert Operations</p>
+                            <p><strong>Location:</strong> Eastern Europe</p>
+                            <p><strong>Clearance:</strong> Level 5</p>
+                            <a href="#agent-001" class="view-file-btn">VIEW FULL FILE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent 002 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="file-card" data-character="agent-002">
+                    <div class="folder-label">AGENT 002</div>
+                    <div class="classified-seal">TOP<br>SECRET</div>
+                    <div class="folder-photo">
+                        <div class="photo-clip"></div>
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=250&fit=crop&crop=face" alt="Agent 002" class="img-fluid">
+                    </div>
+                    <div class="file-content">
+                        <div class="character-info">
+                            <h3 class="character-name">SARAH CHEN</h3>
+                            <p class="character-codename">CODENAME: PHOENIX</p>
+                            <span class="character-status status-active">ACTIVE</span>
+                        </div>
+                    </div>
+                    <div class="hover-overlay">
+                        <div class="classified-info text-center">
+                            <h4>SARAH CHEN</h4>
+                            <p><strong>Status:</strong> Active</p>
+                            <p><strong>Specialization:</strong> Cyber Intelligence</p>
+                            <p><strong>Location:</strong> Silicon Valley</p>
+                            <p><strong>Clearance:</strong> Level 4</p>
+                            <a href="#agent-002" class="view-file-btn">VIEW FULL FILE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent 003 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="file-card" data-character="agent-003">
+                    <div class="folder-label">AGENT 003</div>
+                    <div class="classified-seal">TOP<br>SECRET</div>
+                    <div class="folder-photo">
+                        <div class="photo-clip"></div>
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=250&fit=crop&crop=face" alt="Agent 003" class="img-fluid">
+                    </div>
+                    <div class="file-content">
+                        <div class="character-info">
+                            <h3 class="character-name">MARCUS RODRIGUEZ</h3>
+                            <p class="character-codename">CODENAME: VIPER</p>
+                            <span class="character-status status-deep-cover">DEEP COVER</span>
+                        </div>
+                    </div>
+                    <div class="hover-overlay">
+                        <div class="classified-info text-center">
+                            <h4>MARCUS RODRIGUEZ</h4>
+                            <p><strong>Status:</strong> Deep Cover</p>
+                            <p><strong>Specialization:</strong> Infiltration</p>
+                            <p><strong>Location:</strong> South America</p>
+                            <p><strong>Clearance:</strong> Level 5</p>
+                            <a href="#agent-003" class="view-file-btn">VIEW FULL FILE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent 004 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="file-card" data-character="agent-004">
+                    <div class="folder-label">AGENT 004</div>
+                    <div class="classified-seal">TOP<br>SECRET</div>
+                    <div class="folder-photo">
+                        <div class="photo-clip"></div>
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=250&fit=crop&crop=face" alt="Agent 004" class="img-fluid">
+                    </div>
+                    <div class="file-content">
+                        <div class="character-info">
+                            <h3 class="character-name">ELENA VOLKOV</h3>
+                            <p class="character-codename">CODENAME: RAVEN</p>
+                            <span class="character-status status-active">ACTIVE</span>
+                        </div>
+                    </div>
+                    <div class="hover-overlay">
+                        <div class="classified-info text-center">
+                            <h4>ELENA VOLKOV</h4>
+                            <p><strong>Status:</strong> Active</p>
+                            <p><strong>Specialization:</strong> Counter-Intelligence</p>
+                            <p><strong>Location:</strong> Moscow</p>
+                            <p><strong>Clearance:</strong> Level 6</p>
+                            <a href="#agent-004" class="view-file-btn">VIEW FULL FILE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent 005 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="file-card" data-character="agent-005">
+                    <div class="folder-label">AGENT 005</div>
+                    <div class="classified-seal">TOP<br>SECRET</div>
+                    <div class="folder-photo">
+                        <div class="photo-clip"></div>
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=250&fit=crop&crop=face" alt="Agent 005" class="img-fluid">
+                    </div>
+                    <div class="file-content">
+                        <div class="character-info">
+                            <h3 class="character-name">DAVID THOMPSON</h3>
+                            <p class="character-codename">CODENAME: FALCON</p>
+                            <span class="character-status status-active">ACTIVE</span>
+                        </div>
+                    </div>
+                    <div class="hover-overlay">
+                        <div class="classified-info text-center">
+                            <h4>DAVID THOMPSON</h4>
+                            <p><strong>Status:</strong> Active</p>
+                            <p><strong>Specialization:</strong> Tactical Operations</p>
+                            <p><strong>Location:</strong> Middle East</p>
+                            <p><strong>Clearance:</strong> Level 4</p>
+                            <a href="#agent-005" class="view-file-btn">VIEW FULL FILE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent 006 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="file-card" data-character="agent-006">
+                    <div class="folder-label">AGENT 006</div>
+                    <div class="classified-seal">TOP<br>SECRET</div>
+                    <div class="folder-photo">
+                        <div class="photo-clip"></div>
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=250&fit=crop&crop=face" alt="Agent 006" class="img-fluid">
+                    </div>
+                    <div class="file-content">
+                        <div class="character-info">
+                            <h3 class="character-name">MAYA PATEL</h3>
+                            <p class="character-codename">CODENAME: GHOST</p>
+                            <span class="character-status status-active">ACTIVE</span>
+                        </div>
+                    </div>
+                    <div class="hover-overlay">
+                        <div class="classified-info text-center">
+                            <h4>MAYA PATEL</h4>
+                            <p><strong>Status:</strong> Active</p>
+                            <p><strong>Specialization:</strong> Surveillance</p>
+                            <p><strong>Location:</strong> Southeast Asia</p>
+                            <p><strong>Clearance:</strong> Level 3</p>
+                            <a href="#agent-006" class="view-file-btn">VIEW FULL FILE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent 007 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="file-card" data-character="agent-007">
+                    <div class="folder-label">AGENT 007</div>
+                    <div class="classified-seal">TOP<br>SECRET</div>
+                    <div class="folder-photo">
+                        <div class="photo-clip"></div>
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=250&fit=crop&crop=face" alt="Agent 007" class="img-fluid">
+                    </div>
+                    <div class="file-content">
+                        <div class="character-info">
+                            <h3 class="character-name">ALEX MORGAN</h3>
+                            <p class="character-codename">CODENAME: STORM</p>
+                            <span class="character-status status-mia">MIA</span>
+                        </div>
+                    </div>
+                    <div class="hover-overlay">
+                        <div class="classified-info text-center">
+                            <h4>ALEX MORGAN</h4>
+                            <p><strong>Status:</strong> MIA</p>
+                            <p><strong>Specialization:</strong> Extraction</p>
+                            <p><strong>Location:</strong> Unknown</p>
+                            <p><strong>Clearance:</strong> Level 5</p>
+                            <a href="#agent-007" class="view-file-btn">VIEW FULL FILE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent 008 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="file-card" data-character="agent-008">
+                    <div class="folder-label">AGENT 008</div>
+                    <div class="classified-seal">TOP<br>SECRET</div>
+                    <div class="folder-photo">
+                        <div class="photo-clip"></div>
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=250&fit=crop&crop=face" alt="Agent 008" class="img-fluid">
+                    </div>
+                    <div class="file-content">
+                        <div class="character-info">
+                            <h3 class="character-name">ZARA HASSAN</h3>
+                            <p class="character-codename">CODENAME: CIPHER</p>
+                            <span class="character-status status-active">ACTIVE</span>
+                        </div>
+                    </div>
+                    <div class="hover-overlay">
+                        <div class="classified-info text-center">
+                            <h4>ZARA HASSAN</h4>
+                            <p><strong>Status:</strong> Active</p>
+                            <p><strong>Specialization:</strong> Cryptography</p>
+                            <p><strong>Location:</strong> Langley</p>
+                            <p><strong>Clearance:</strong> Level 4</p>
+                            <a href="#agent-008" class="view-file-btn">VIEW FULL FILE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent 009 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="file-card" data-character="agent-009">
+                    <div class="folder-label">AGENT 009</div>
+                    <div class="classified-seal">TOP<br>SECRET</div>
+                    <div class="folder-photo">
+                        <div class="photo-clip"></div>
+                        <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=200&h=250&fit=crop&crop=face" alt="Agent 009" class="img-fluid">
+                    </div>
+                    <div class="file-content">
+                        <div class="character-info">
+                            <h3 class="character-name">RYAN COOPER</h3>
+                            <p class="character-codename">CODENAME: TITAN</p>
+                            <span class="character-status status-active">ACTIVE</span>
+                        </div>
+                    </div>
+                    <div class="hover-overlay">
+                        <div class="classified-info text-center">
+                            <h4>RYAN COOPER</h4>
+                            <p><strong>Status:</strong> Active</p>
+                            <p><strong>Specialization:</strong> Weapons Expert</p>
+                            <p><strong>Location:</strong> Africa</p>
+                            <p><strong>Clearance:</strong> Level 4</p>
+                            <a href="#agent-009" class="view-file-btn">VIEW FULL FILE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row">
+            <div class="col-12">
+                <div class="footer-classified text-center">
+                    <p>DOCUMENT CLASSIFICATION: TOP SECRET // NOFORN</p>
+                    <p>AUTHORIZED PERSONNEL ONLY</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript personalizado -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileCards = document.querySelectorAll('.file-card');
+            
+            fileCards.forEach((card, index) => {
+                // Animación de entrada escalonada
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+                
+                // Click handler para los botones
+                const viewFileBtn = card.querySelector('.view-file-btn');
+                if (viewFileBtn) {
+                    viewFileBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const characterId = card.getAttribute('data-character');
+                        
+                        // Mostrar notificación
+                        showNotification(`Opening ${characterId.toUpperCase()} personnel file...`);
+                        
+                        // Simular redirección después de 2 segundos
+                        setTimeout(() => {
+                            window.open(`#${characterId}`, '_blank');
+                        }, 2000);
+                    });
+                }
+            });
+            
+            // Función para mostrar notificaciones
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'position-fixed top-50 start-50 translate-middle bg-success text-white p-3 rounded shadow';
+                notification.style.zIndex = '9999';
+                notification.innerHTML = `
+                    <h6 class="mb-1">ACCESSING FILE</h6>
+                    <small>${message}</small>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 2000);
+            }
+            
+            // Efecto de escritura para el título
+            const title = document.querySelector('.main-title');
+            if (title) {
+                const originalText = title.textContent;
+                title.textContent = '';
+                
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < originalText.length) {
+                        title.textContent += originalText.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 100);
+                    }
+                };
+                
+                setTimeout(typeWriter, 500);
+            }
+        });
+    </script>
+</body>
+</html>

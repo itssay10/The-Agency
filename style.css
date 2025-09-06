@@ -32,8 +32,10 @@ body {
 }
 
 /* Botón To Janitor específico (opcional) */
-#janitor {
+#janitor, #cai, #charsnap {
   font-size: 13px;
   font-style: oblique;
   /* La clase w-100 (Bootstrap) ya lo hace de ancho completo */
 }
+
+
